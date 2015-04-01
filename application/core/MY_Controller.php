@@ -26,6 +26,24 @@ class Application extends CI_Controller {
         $this->errors = array();
         $this->data['pageTitle'] = 'welcome';   // our default page
     }
+    
+    //restrict access
+    function restrict($roleNeeded = null) {
+      $userRole = $this->session->userdata('userRole');
+      
+    
+      if ($roleNeeded != null) {
+        if (is_array($roleNeeded)) {
+          if (!in_array($userRole, $roleNeeded)) {
+            redirect("/");
+            return;
+          }
+        } else if ($userRole != $roleNeeded) {
+          redirect("/");
+          return;
+        }
+    }
+    }
 
     /**
      * Render this page
@@ -33,6 +51,7 @@ class Application extends CI_Controller {
     function render() {
         $this->data['menubar'] = $this->parser->parse('_menubar', $this->config->item('menu_choices'),true);
         $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
+        $this->data['sessionid'] = session_id();
 
         // finally, build the browser page!
         $this->data['data'] = &$this->data;

@@ -1,5 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+// user roles
+define('ROLE_USER','user'); //t osee the alpha and beta pages
+define('ROLE_ADMIN','admin'); // to see all 3 content pages beyond the homepage
+
 // location of data folders
 define('DATAPATH', './data/');
 define('XMLSUFFIX','.xml');
