@@ -10,9 +10,13 @@ class Auth extends Application {
     $this->render();
   }
   
+  //Login submit code
     function submit() {
+      //get user
       $key = $_POST['userid'];
       $user = $this->users->get($key);
+      
+      //Create session if password matches
       if (password_verify($this->input->post('password'), $user->password)) {
         $this->session->set_userdata('userID',$key);
         $this->session->set_userdata('userName',$user->name);
